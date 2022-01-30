@@ -11,8 +11,6 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.res.stringResource
 import com.example.restrata.terminal.nfc.R
 import com.example.restrata.terminal.nfc.ui.theme.NFCTheme
@@ -52,6 +50,5 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun Card(viewModel: NFCViewModel) {
-    val card by viewModel.card.observeAsState()
-    Text(text = card ?: stringResource(id = R.string.nfc_waiting))
+    Text(text = viewModel.card ?: stringResource(id = R.string.nfc_waiting))
 }

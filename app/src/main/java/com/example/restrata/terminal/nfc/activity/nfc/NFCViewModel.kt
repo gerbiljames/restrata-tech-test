@@ -1,8 +1,9 @@
 package com.example.restrata.terminal.nfc.activity.nfc
 
 import android.nfc.Tag
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -10,11 +11,11 @@ import javax.inject.Inject
 @HiltViewModel
 class NFCViewModel @Inject constructor() : ViewModel() {
 
-    val card: LiveData<String?> get() = _card
-    private val _card = MutableLiveData<String?>()
+    var card by mutableStateOf<String?>(null)
+        private set
 
     fun onNewTag(tag: Tag) {
-        _card.postValue("tag.id=${tag.id.toHex2()}")
+        card = "tag.id=${tag.id.toHex2()}"
     }
 
     @ExperimentalUnsignedTypes
