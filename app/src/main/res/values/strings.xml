@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">NFC</string>
-    <string name="nfc_waiting">Waiting for card...</string>
+    <string name="nfc_waiting">Waiting for card…</string>
+    <string name="card_id">tag.id=%s</string>
 </resources>

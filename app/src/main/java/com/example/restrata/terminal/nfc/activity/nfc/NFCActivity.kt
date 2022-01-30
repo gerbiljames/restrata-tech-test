@@ -50,5 +50,9 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun Card(viewModel: NFCViewModel) {
-    Text(text = viewModel.card ?: stringResource(id = R.string.nfc_waiting))
+    Text(text =
+        viewModel.card?.let {
+            stringResource(id = R.string.card_id, it.id)
+        } ?: stringResource(id = R.string.nfc_waiting)
+    )
 }
