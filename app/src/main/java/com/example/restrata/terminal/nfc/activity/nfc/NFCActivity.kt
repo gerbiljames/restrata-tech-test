@@ -11,9 +11,11 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import com.example.restrata.terminal.nfc.R
 import com.example.restrata.terminal.nfc.ui.theme.NFCTheme
+import com.example.restrata.terminal.nfc.ui.theme.Teal200
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -50,9 +52,15 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun Card(viewModel: NFCViewModel) {
-    Text(text =
-        viewModel.card?.let {
-            stringResource(id = R.string.card_id, it.id)
-        } ?: stringResource(id = R.string.nfc_waiting)
+    Text(
+
+        text = viewModel.card?.let {
+            stringResource(id = R.string.card_id, it.first.id)
+        } ?: stringResource(id = R.string.nfc_waiting),
+
+        color = when (viewModel.card?.second) {
+            true -> Teal200
+            else -> Color.Unspecified
+        }
     )
 }
