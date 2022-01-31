@@ -18,7 +18,7 @@
         android:theme="@style/Theme.NFC">
 
         <activity
-            android:name=".activity.nfc.MainActivity"
+            android:name=".activity.nfc.NFCActivity"
             android:exported="true"
             android:launchMode="singleTask"
             android:theme="@style/Theme.NFC.NoActionBar"
@@ -66,8 +66,12 @@
                     android:pathPrefix="/index.html"
                     android:scheme="https" />
             </intent-filter>
-
         </activity>
+
+        <activity
+            android:name=".activity.cardlist.CardListActivity"
+            android:theme="@style/Theme.NFC.NoActionBar"
+            android:title="@string/app_name"/>
     </application>
 
 </manifest>

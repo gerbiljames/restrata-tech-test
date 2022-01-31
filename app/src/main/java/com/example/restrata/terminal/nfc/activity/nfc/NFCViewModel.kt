@@ -22,15 +22,14 @@ class NFCViewModel @Inject constructor(
         private set
 
     fun onNewTag(tag: Tag) {
-        Card(id = tag.id.toHex2(), timestamp = LocalDateTime.now()).let {
+        Card(id = tag.id.toHex(), timestamp = LocalDateTime.now()).let {
             viewModelScope.launch {
                 card = it to cardManager.cardExists(it)
                 cardManager.addCard(it)
             }
         }
     }
-
-    @ExperimentalUnsignedTypes
-    private fun ByteArray.toHex2(): String =
+    
+    private fun ByteArray.toHex(): String =
         asUByteArray().joinToString("") { it.toString(radix = 16).padStart(2, '0') }
 }
