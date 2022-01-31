@@ -9,13 +9,15 @@ import androidx.lifecycle.viewModelScope
 import com.example.restrata.terminal.nfc.data.Card
 import com.example.restrata.terminal.nfc.manager.CardManager
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.launch
 import java.time.LocalDateTime
 import javax.inject.Inject
 
 @HiltViewModel
 class NFCViewModel @Inject constructor(
-    private val cardManager: CardManager
+    private val cardManager: CardManager,
+    private val dispatcher: CoroutineDispatcher
 ) : ViewModel() {
 
     var card by mutableStateOf<Pair<Card, Boolean>?>(null)
@@ -23,13 +25,13 @@ class NFCViewModel @Inject constructor(
 
     fun onNewTag(tag: Tag) {
         Card(id = tag.id.toHex(), timestamp = LocalDateTime.now()).let {
-            viewModelScope.launch {
+            viewModelScope.launch(dispatcher) {
                 card = it to cardManager.cardExists(it)
                 cardManager.addCard(it)
             }
         }
     }
-    
+
     private fun ByteArray.toHex(): String =
         asUByteArray().joinToString("") { it.toString(radix = 16).padStart(2, '0') }
 }
